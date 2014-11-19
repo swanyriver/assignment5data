@@ -494,7 +494,7 @@ void addHeap(DynArr *heap, TYPE val)
 void _adjustHeap(DynArr *heap, int max, int pos)
 {
     assert(heap);
-    assert(max < sizeDynArr(heap));
+    assert(max <= sizeDynArr(heap));
 
     int leftChild  = pos * 2 +  1;
     int rightChild = leftChild + 1;

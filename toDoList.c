@@ -104,7 +104,17 @@ void loadList(DynArr *heap, FILE *filePtr)
 */
 void printList(DynArr *heap)
 {
-    printf("list here\n");
+    assert(heap);
+    assert(!isEmptyDynArr(heap));
+
+    Task *pTask;
+
+    sortHeap(heap);
+
+    for(int i=sizeDynArr(heap)-1; i>=0; --i){
+        pTask = (Task*) getDynArr(heap,i);
+        printf("%s priority:%d\n", pTask->description, pTask->priority);
+    }
 }
 
 /*  Delete the list
