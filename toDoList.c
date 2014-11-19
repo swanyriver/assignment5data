@@ -107,14 +107,18 @@ void printList(DynArr *heap)
     assert(heap);
     assert(!isEmptyDynArr(heap));
 
+    DynArr *temp = createDynArr(10);
+    for(int i=0; i<sizeDynArr(heap); i++) addHeap(temp,getDynArr(heap,i));
+
     Task *pTask;
 
-    sortHeap(heap);
-
-    for(int i=sizeDynArr(heap)-1; i>=0; --i){
-        pTask = (Task*) getDynArr(heap,i);
+    while(!isEmptyDynArr(temp)){
+        pTask = (Task*) getMinHeap(temp);
+        removeMinHeap(temp);
         printf("%s priority:%d\n", pTask->description, pTask->priority);
     }
+
+
 }
 
 /*  Delete the list

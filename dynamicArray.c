@@ -566,6 +566,8 @@ void sortHeap(DynArr *heap)
     assert(heap);
     assert(!isEmptyDynArr(heap));
 
+    _buildHeap(heap);
+
     for(int i=sizeDynArr(heap)-1; i>=0; i--){
         swapDynArr(heap,i,0);
         _adjustHeap(heap,i,0);
