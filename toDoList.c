@@ -15,7 +15,15 @@
 */
 Task* createTask (int priority, char *desc)
 {
-		/* FIXME */
+        //allocate memory
+		Task *newTask = malloc(sizeof(Task));
+		assert(newTask);
+
+		//set up values
+		strcpy(newTask->description,desc);
+		newTask->priority=priority;
+
+		return newTask;
 
 }
 
@@ -143,7 +151,12 @@ void deleteList(DynArr *heap)
  */
 int compare(TYPE left, TYPE right)
 {
-    /*FIXME: write this*/
+    Task *l = (Task*) left;
+    Task *r = (Task*) right;
+
+    if(l->priority < r->priority) return -1;
+    else if(l->priority > r->priority) return 1;
+    else return 0;
 }
 
 /*Define this function, type casting the value of void * to the desired type*/

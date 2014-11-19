@@ -433,8 +433,13 @@ void _adjustHeap(DynArr *heap, int max, int pos);
 */
 int _smallerIndexHeap(DynArr *heap, int i, int j)
 {
-  /* FIXME */
-  return 0;
+    assert(heap);
+    assert(i<sizeDynArr(heap) && i >= 0);
+    assert(j<sizeDynArr(heap) && j >= 0);
+
+    int comp = compare(getDynArr(heap, i),getDynArr(heap, j));
+    if(comp < 0) return i;
+    else return j;
 }
 
 /*	Get the first node, which has the min priority, from the heap
@@ -460,7 +465,21 @@ TYPE getMinHeap(DynArr *heap)
 */
 void addHeap(DynArr *heap, TYPE val)
 {
-    /* FIXME */
+    assert(heap);
+
+    int parent;
+    int position = sizeDynArr(heap);
+    addDynArr(heap,val);
+
+    //Percolate UP
+    while(position != 0){
+        parent = (position-1)/2;
+        if(compare(getDynArr(heap,position),getDynArr(heap,parent))<0){
+            swapDynArr(heap,parent,position);
+            position = parent;
+        }else return;
+    }
+
 
 }
 
