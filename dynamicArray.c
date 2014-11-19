@@ -450,10 +450,10 @@ int _smallerIndexHeap(DynArr *heap, int i, int j)
 */
 TYPE getMinHeap(DynArr *heap)
 {
-  /* FIXME */
+  assert(heap);
+  assert(!isEmptyDynArr(heap));
 
-  /* Temporary returning NULL */
-  return NULL;
+  return getDynArr(heap,0);
 }
 
 /*	Add a node to the heap
@@ -493,7 +493,25 @@ void addHeap(DynArr *heap, TYPE val)
 */
 void _adjustHeap(DynArr *heap, int max, int pos)
 {
-   /* FIXME */
+    assert(heap);
+    assert(max < sizeDynArr(heap));
+
+    int leftChild  = pos * 2 +  1;
+    int rightChild = leftChild + 1;
+
+    if( rightChild < max ){
+       int smallestChild = _smallerIndexHeap(heap,leftChild,rightChild);
+       if(_smallerIndexHeap(heap,smallestChild,pos) == smallestChild){
+           swapDynArr(heap, smallestChild, pos);
+           _adjustHeap(heap, max, smallestChild);
+       }
+    }else if( leftChild < max ){
+       if(_smallerIndexHeap(heap, leftChild, pos) == leftChild){
+           swapDynArr(heap, leftChild, pos);
+           _adjustHeap(heap, max, leftChild);
+       }
+    }
+    //no children, node is already a heap
 }
 
 /*	Remove the first node, which has the min priority, from the heap
@@ -504,7 +522,15 @@ void _adjustHeap(DynArr *heap, int max, int pos)
 */
 void removeMinHeap(DynArr *heap)
 {
-   /* FIXME */
+    int last;
+
+    assert(heap);
+    assert(sizeDynArr(heap)>0);
+
+    last = sizeDynArr(heap) - 1;
+    putDynArr(heap,0,getDynArr(heap,last)); //replace first element with last
+    removeAtDynArr(heap,last);
+    _adjustHeap(heap,last,0);       //re-heapify
 
 }
 
@@ -517,7 +543,15 @@ void removeMinHeap(DynArr *heap)
 
 void _buildHeap(DynArr *heap)
 {
-    /* FIXME */
+    assert(heap);
+    assert(!isEmptyDynArr(heap));
+
+
+    int max = sizeDynArr(heap);
+
+    for (int i = max/2-1; i >= 0; i--)
+        _adjustHeap(heap, max, i);
+
 }
 /*
     In-place sort of the heap
@@ -529,7 +563,12 @@ void _buildHeap(DynArr *heap)
 
 void sortHeap(DynArr *heap)
 {
-   /* FIXME */
+    assert(heap);
+    assert(!isEmptyDynArr(heap));
 
+    for(int i=sizeDynArr(heap)-1; i>=0; i--){
+        swapDynArr(heap,i,0);
+        _adjustHeap(heap,i,0);
+    }
 }
 

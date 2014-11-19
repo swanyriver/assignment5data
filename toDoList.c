@@ -104,7 +104,7 @@ void loadList(DynArr *heap, FILE *filePtr)
 */
 void printList(DynArr *heap)
 {
-    /* FIXME: Write this */
+    printf("list here\n");
 }
 
 /*  Delete the list
