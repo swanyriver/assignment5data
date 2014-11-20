@@ -118,6 +118,7 @@ void printList(DynArr *heap)
         printf("%s priority:%d\n", pTask->description, pTask->priority);
     }
 
+    deleteDynArr(temp);
 
 }
 
